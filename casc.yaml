@@ -1,0 +1,12 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: 'admin'
+         password: 'password'
+  remotingSecurity:
+    enabled: true
+unclassified:
+  location:
+    url: http://localhost:8080/
