@@ -78,3 +78,45 @@ jobs:
         }
         }
       }
+
+      job('sls-runner') {
+        parameters {
+              stringParam('REPO', 'https://github.com/apache/hadoop.git', 'CDH repo')
+              stringParam('BRANCH', 'sls-tests', 'Git branch')
+              choiceParam('SCHEDULER_TYPE', ['fair (default)', 'capacity'], 'Type of the scheduler, should be either "fair" or "capacity"')
+              stringParam('SLS_BUILD_NUMBER', '', 'The build number of the SLS build job. If empty, the latest build will be used') 
+              stringParam('NUMBER_OF_RUNS', '1', 'Number of times SLS testing will be performed')
+              stringParam('WORKLOAD_TYPES', 'resource-types, capacity', 'Comma seperated list of workloads. A workload defines how the SLS input data is generated.')              
+            }
+        properties {
+            
+            rebuild {
+            autoRebuild(false)
+        }
+        }
+        scm {
+        git {
+            remote {
+                url('$REPO')
+            }
+            branch('*/$BRANCH')
+
+        }
+        }
+      triggers {
+        cron('@monthly')
+        }
+      concurrentBuild(false)
+     
+      steps {
+        shell('bash /sls_runner_jenkins.sh')
+      }
+    
+      publishers {
+        archiveJunit('**/target/surefire-reports/*.xml') {
+            allowEmptyResults()
+            retainLongStdout(false)
+            healthScaleFactor(1.0)
+        }
+        }
+      }

@@ -38,7 +38,6 @@ docker run --name ${HADOOP_BUILD_CONTAINER} --rm -p 5006:5005 -d \
 -v ${BUILDS_DIR}:${BUILDS_DIR}:rw \
 -v /hadoop:/hadoop:rw ${DOCKER_IMAGE_REF} bash /hadoop/${JENKINS_COMMAND_SCRIPT}
 
-# docker exec -u 0 -it ${HADOOP_BUILD_CONTAINER} bash -c 'chown -R jenkins /root/'
 echo -e "Finished '${HADOOP_BUILD_CONTAINER}' docker container\n"
 
 rm -f $WORKSPACE/success

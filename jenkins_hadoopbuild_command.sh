@@ -14,13 +14,7 @@ echo export PROTOBUF_INCLUDE_DIR >>/etc/profile
 
 cat /etc/profile
 chown -R 1000:1000 .
-# chown -R jenkins:jenkins /root/
 chown -R 1000:1000 /root/
-# chmod 777 1000:1000 /root/.config
-# chmod 777 1000:1000 /root/.npm
-# echo "fazil"
-# chown -R jenkins:jenkins /root/.config
-# chown -R 1000:1000 /root/.config
 if [ -f /opt/mvn/apache-maven-3.3.9/bin/mvn ]
 then
   /opt/maven/bin/mvn --version;
